@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4CE402862B91C00F0007CA80 /* HHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE402782B91C00F0007CA80 /* HHViewController.m */; };
+		4CE402872B91C00F0007CA80 /* HHTabViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE4027A2B91C00F0007CA80 /* HHTabViewsController.m */; };
+		4CE402882B91C00F0007CA80 /* HHTabContentSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE4027D2B91C00F0007CA80 /* HHTabContentSubView.m */; };
+		4CE402892B91C00F0007CA80 /* headerimg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CE4027F2B91C00F0007CA80 /* headerimg.png */; };
+		4CE4028A2B91C00F0007CA80 /* HHTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE402802B91C00F0007CA80 /* HHTableViewController.m */; };
+		4CE4028B2B91C00F0007CA80 /* HHTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE402812B91C00F0007CA80 /* HHTabViewController.m */; };
+		4CE4028C2B91C00F0007CA80 /* HHTabHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE402852B91C00F0007CA80 /* HHTabHeaderViewController.m */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -29,9 +36,23 @@
 
 /* Begin PBXFileReference section */
 		038C79854B3A1FD9900A02C5 /* Pods-HHTabBarController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HHTabBarController_Example.debug.xcconfig"; path = "Target Support Files/Pods-HHTabBarController_Example/Pods-HHTabBarController_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		0CB2FD8CCED1DA7B39493EA6 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		0CB2FD8CCED1DA7B39493EA6 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		2ADCF19B256632D7EF75C465 /* Pods-HHTabBarController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HHTabBarController_Tests.release.xcconfig"; path = "Target Support Files/Pods-HHTabBarController_Tests/Pods-HHTabBarController_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		3ECF3D1E7EEDBB1B91967B4B /* Pods-HHTabBarController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HHTabBarController_Tests.debug.xcconfig"; path = "Target Support Files/Pods-HHTabBarController_Tests/Pods-HHTabBarController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		4CE402732B91BFBD0007CA80 /* HHTabBarController_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HHTabBarController_Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		4CE402782B91C00F0007CA80 /* HHViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHViewController.m; sourceTree = "<group>"; };
+		4CE4027A2B91C00F0007CA80 /* HHTabViewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHTabViewsController.m; sourceTree = "<group>"; };
+		4CE4027B2B91C00F0007CA80 /* HHTabContentSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHTabContentSubView.h; sourceTree = "<group>"; };
+		4CE4027C2B91C00F0007CA80 /* HHTabViewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHTabViewsController.h; sourceTree = "<group>"; };
+		4CE4027D2B91C00F0007CA80 /* HHTabContentSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHTabContentSubView.m; sourceTree = "<group>"; };
+		4CE4027E2B91C00F0007CA80 /* HHTabHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHTabHeaderViewController.h; sourceTree = "<group>"; };
+		4CE4027F2B91C00F0007CA80 /* headerimg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headerimg.png; sourceTree = "<group>"; };
+		4CE402802B91C00F0007CA80 /* HHTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHTableViewController.m; sourceTree = "<group>"; };
+		4CE402812B91C00F0007CA80 /* HHTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHTabViewController.m; sourceTree = "<group>"; };
+		4CE402822B91C00F0007CA80 /* HHViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHViewController.h; sourceTree = "<group>"; };
+		4CE402832B91C00F0007CA80 /* HHTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHTabViewController.h; sourceTree = "<group>"; };
+		4CE402842B91C00F0007CA80 /* HHTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHTableViewController.h; sourceTree = "<group>"; };
+		4CE402852B91C00F0007CA80 /* HHTabHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHTabHeaderViewController.m; sourceTree = "<group>"; };
 		57408DA3EB5E5135E88CBF5D /* Pods_HHTabBarController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HHTabBarController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* HHTabBarController_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HHTabBarController_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,8 +64,8 @@
 		607FACE51AFB9204008FA782 /* HHTabBarController_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HHTabBarController_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		87D0C96A1706E5D8788B57B4 /* HHTabBarController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = HHTabBarController.podspec; path = ../HHTabBarController.podspec; sourceTree = "<group>"; };
-		B79477F5C4354D67DF16658C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		87D0C96A1706E5D8788B57B4 /* HHTabBarController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = HHTabBarController.podspec; path = ../HHTabBarController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B79477F5C4354D67DF16658C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		C510D16350F5D170C9578847 /* Pods_HHTabBarController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HHTabBarController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7AA9D2B1776CBB56D22C214 /* Pods-HHTabBarController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HHTabBarController_Example.release.xcconfig"; path = "Target Support Files/Pods-HHTabBarController_Example/Pods-HHTabBarController_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +90,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CE402772B91C00F0007CA80 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				4CE4027F2B91C00F0007CA80 /* headerimg.png */,
+				4CE4027E2B91C00F0007CA80 /* HHTabHeaderViewController.h */,
+				4CE402852B91C00F0007CA80 /* HHTabHeaderViewController.m */,
+				4CE402842B91C00F0007CA80 /* HHTableViewController.h */,
+				4CE402802B91C00F0007CA80 /* HHTableViewController.m */,
+				4CE402832B91C00F0007CA80 /* HHTabViewController.h */,
+				4CE402812B91C00F0007CA80 /* HHTabViewController.m */,
+				4CE402822B91C00F0007CA80 /* HHViewController.h */,
+				4CE402782B91C00F0007CA80 /* HHViewController.m */,
+				4CE402792B91C00F0007CA80 /* TabViewDemo */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		4CE402792B91C00F0007CA80 /* TabViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				4CE4027B2B91C00F0007CA80 /* HHTabContentSubView.h */,
+				4CE4027D2B91C00F0007CA80 /* HHTabContentSubView.m */,
+				4CE4027C2B91C00F0007CA80 /* HHTabViewsController.h */,
+				4CE4027A2B91C00F0007CA80 /* HHTabViewsController.m */,
+			);
+			path = TabViewDemo;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -93,12 +142,14 @@
 		607FACD21AFB9204008FA782 /* Example for HHTabBarController */ = {
 			isa = PBXGroup;
 			children = (
+				4CE402772B91C00F0007CA80 /* Example */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				4CE402732B91BFBD0007CA80 /* HHTabBarController_Example-Bridging-Header.h */,
 			);
 			name = "Example for HHTabBarController";
 			path = HHTabBarController;
@@ -147,7 +198,6 @@
 				3ECF3D1E7EEDBB1B91967B4B /* Pods-HHTabBarController_Tests.debug.xcconfig */,
 				2ADCF19B256632D7EF75C465 /* Pods-HHTabBarController_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -213,10 +263,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
+						DevelopmentTeam = 2BVJTJ865U;
+						LastSwiftMigration = 1520;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 2BVJTJ865U;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -227,6 +279,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -248,6 +301,7 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				4CE402892B91C00F0007CA80 /* headerimg.png in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,11 +323,23 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HHTabBarController_Example/Pods-HHTabBarController_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/HHTabBarController/HHTabBarController.framework",
+				"${BUILT_PRODUCTS_DIR}/HHUtils/HHUtils.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HHTabBarController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HHUtils.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -331,8 +397,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CE402862B91C00F0007CA80 /* HHViewController.m in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				4CE4028B2B91C00F0007CA80 /* HHTabViewController.m in Sources */,
+				4CE402872B91C00F0007CA80 /* HHTabViewsController.m in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				4CE4028C2B91C00F0007CA80 /* HHTabHeaderViewController.m in Sources */,
+				4CE402882B91C00F0007CA80 /* HHTabContentSubView.m in Sources */,
+				4CE4028A2B91C00F0007CA80 /* HHTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +491,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -465,7 +537,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -478,11 +550,15 @@
 			baseConfigurationReference = 038C79854B3A1FD9900A02C5 /* Pods-HHTabBarController_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 2BVJTJ865U;
 				INFOPLIST_FILE = HHTabBarController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HHTabBarController/HHTabBarController_Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -493,11 +569,14 @@
 			baseConfigurationReference = C7AA9D2B1776CBB56D22C214 /* Pods-HHTabBarController_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 2BVJTJ865U;
 				INFOPLIST_FILE = HHTabBarController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HHTabBarController/HHTabBarController_Example-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -507,6 +586,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3ECF3D1E7EEDBB1B91967B4B /* Pods-HHTabBarController_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 2BVJTJ865U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -529,6 +609,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2ADCF19B256632D7EF75C465 /* Pods-HHTabBarController_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 2BVJTJ865U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",

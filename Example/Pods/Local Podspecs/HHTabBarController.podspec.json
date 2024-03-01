@@ -1,0 +1,27 @@
+{
+  "name": "HHTabBarController",
+  "version": "0.1.0",
+  "summary": "A short description of HHTabBarController.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/michaelssman/HHTabBarController",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "michaelstrongself@outlook.com": "michaelstrongself@outlook.com"
+  },
+  "source": {
+    "git": "https://github.com/michaelssman/HHTabBarController.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "HHTabBarController/Classes/**/*",
+  "dependencies": {
+    "HHUtils": [
+
+    ]
+  }
+}
