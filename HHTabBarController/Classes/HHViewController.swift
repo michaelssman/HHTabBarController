@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UIViewController: UIScrollViewDelegate {
+public extension UIViewController {
     
     private static var hh_scrollViewKey: Void?
     @objc var hh_scrollView: UIScrollView? {
@@ -30,6 +30,14 @@ extension UIViewController: UIScrollViewDelegate {
             objc_setAssociatedObject(self, &Self.hh_didScollHandlerKey, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
     }
+    
+//    @objc func hh_scrollView() -> UIScrollView? {
+//        print("over")
+//        return nil
+//    }
+}
+
+extension UIViewController: UIScrollViewDelegate {
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let hh_didScollHandler = hh_didScollHandler {

@@ -2,12 +2,14 @@ PODS:
   - Alamofire (5.8.1)
   - HHTabBarController (0.1.0):
     - HHUtils
+    - MJRefresh
   - HHUtils (0.4.3):
     - Alamofire (~> 5.0)
     - MBProgressHUD (= 1.2.0)
     - RxCocoa (= 6.5.0)
     - RxSwift (= 6.5.0)
   - MBProgressHUD (1.2.0)
+  - MJRefresh (3.7.6)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
@@ -22,6 +24,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - MBProgressHUD
+    - MJRefresh
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -34,9 +37,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
-  HHTabBarController: bc205956ae833fc3b503eebb706a80dec9cf6ddb
+  HHTabBarController: 2efaffb22845c9f0c6427c4d1706bf0bd848c788
   HHUtils: c5fcff0864f406a036b2a2d2b6850134a350e556
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJRefresh: 2fe7fb43a5167ceda20bb7e63f130c04fd1814a5
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8

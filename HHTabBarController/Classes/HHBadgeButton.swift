@@ -13,9 +13,9 @@ enum HHTabItemBadgeStyle: UInt {
     case dot = 1 // 小圆点
 }
 
-class HHBadgeButton: UIButton {
+public class HHBadgeButton: UIButton {
     // 显示badge的数值
-    @objc var badge: Int = 0 {
+    @objc public var badge: Int = 0 {
         didSet {
             updateBadge()
         }
@@ -25,7 +25,7 @@ class HHBadgeButton: UIButton {
     var badgeStyle: HHTabItemBadgeStyle = .number
     
     // badge的背景颜色
-    @objc var badgeBackgroundColor: UIColor? {
+    @objc public var badgeBackgroundColor: UIColor? {
         didSet {
             self.backgroundColor = badgeBackgroundColor
         }
@@ -39,14 +39,14 @@ class HHBadgeButton: UIButton {
     }
     
     // badge的标题颜色
-    @objc var badgeTitleColor: UIColor? {
+    @objc public var badgeTitleColor: UIColor? {
         didSet {
             self.setTitleColor(badgeTitleColor, for: .normal)
         }
     }
     
     // badge的标题字体
-    @objc var badgeTitleFont: UIFont? {
+    @objc public var badgeTitleFont: UIFont? {
         didSet {
             self.titleLabel?.font = badgeTitleFont
             updateBadge()
@@ -75,7 +75,7 @@ class HHBadgeButton: UIButton {
     }
     
     // 设置数字badge的位置
-    @objc func setNumberBadge(marginTop: CGFloat, centerMarginRight: CGFloat, titleHorizonalSpace: CGFloat, titleVerticalSpace: CGFloat) {
+    @objc public func setNumberBadge(marginTop: CGFloat, centerMarginRight: CGFloat, titleHorizonalSpace: CGFloat, titleVerticalSpace: CGFloat) {
         numberBadgeMarginTop = marginTop
         numberBadgeCenterMarginRight = centerMarginRight
         numberBadgeTitleHorizonalSpace = titleHorizonalSpace

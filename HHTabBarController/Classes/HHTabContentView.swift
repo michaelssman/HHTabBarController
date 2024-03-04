@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc enum HHTabHeaderStyle: Int {
+@objc public enum HHTabHeaderStyle: Int {
     case Stretch
     case Follow
     case OnlyUp //header可以跟随滑动向上，不能向下
@@ -23,7 +23,7 @@ protocol HHTabContentViewDelegate: NSObjectProtocol {
     func didSelectedTab(_ tabContentView: HHTabContentView, index: Int)
 }
 
-class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+public class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
     /// 内容视图
     lazy var contentScrollView: HHTabContentScrollView = {
         let contentScrollView: HHTabContentScrollView = HHTabContentScrollView(frame: self.bounds)
@@ -34,7 +34,7 @@ class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate
         return contentScrollView
     }()
     // MARK: 有header时的内容视图
-    @objc var containerTableView: HHContainerTableView?
+    @objc public var containerTableView: HHContainerTableView?
     private(set) var headerView: UIView?
     var headerViewDefaultHeight: CGFloat = 0
     var tabBarStopOnTopHeight: CGFloat = 0
@@ -54,7 +54,7 @@ class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate
      *  @param tabBarStopOnTopHeight 当内容视图向上滚动时，TabBar停止移动的位置
      *  @param frame 整个界面的frame，一般来说是[UIScreen mainScreen].bounds
      */
-    @objc func setHeader(headerView: UIView?, style: HHTabHeaderStyle, headerHeight: CGFloat, tabBarHeight: CGFloat, tabBarStopOnTopHeight: CGFloat, frame: CGRect) {
+    @objc public func setHeader(headerView: UIView?, style: HHTabHeaderStyle, headerHeight: CGFloat, tabBarHeight: CGFloat, tabBarStopOnTopHeight: CGFloat, frame: CGRect) {
         if headerView == nil {
             return
         }
@@ -93,12 +93,12 @@ class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate
         updateContentViewsFrame()
     }
     
-    @objc var tabBar: HHTabBar = HHTabBar(frame: .zero) {
+    @objc public var tabBar: HHTabBar = HHTabBar(frame: .zero) {
         didSet {
             tabBar.delegate = self
         }
     }
-    @objc var views: Array<UIView> = [] {
+    @objc public var views: Array<UIView> = [] {
         didSet {
             for (index, view) in views.enumerated() {
                 view.frame = frameAtIndex(index: index)
@@ -107,10 +107,10 @@ class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate
             contentScrollView.contentSize = CGSize(width: contentScrollView.bounds.width * CGFloat(views.count), height: contentScrollView.bounds.height)
         }
     }
-    @objc var viewControllers: Array<UIViewController> = [] {
+    @objc public var viewControllers: [UIViewController] = [] {
         didSet {
             let containerVC: UIViewController? = self.viewController()
-            var items: Array<HHTabItem> = Array()
+            var items: [HHTabItem] = Array()
             viewControllers.forEach { viewController in
                 if containerVC != nil {
                     containerVC!.addChild(viewController)
@@ -149,7 +149,7 @@ class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate
      鉴于有些项目集成了左侧或者右侧侧边栏，当内容视图支持滑动切换时，不能实现在第一页向右滑动和最后一页向左滑动呼出侧边栏的功能，
      此2个属性则可以拦截第一页向右滑动和最后一页向左滑动的手势，实现呼出侧边栏的功能
      */
-    @objc var interceptRightSlideGuetureInFirstPage: Bool = false {
+    @objc public var interceptRightSlideGuetureInFirstPage: Bool = false {
         didSet {
             contentScrollView.interceptRightSlideGuetureInFirstPage = interceptRightSlideGuetureInFirstPage
         }
@@ -184,7 +184,7 @@ class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate
         addSubview(contentScrollView)
         tabBar.delegate = self
     }
-    override var frame: CGRect {
+    public override var frame: CGRect {
         didSet {
             if !CGRectEqualToRect(frame, .zero) {
                 contentScrollView.frame = bounds
@@ -295,14 +295,14 @@ extension HHTabContentView {
     }
     
     // MARK: UIScrollViewDelegate
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == contentScrollView {
             containerTableView?.isScrollEnabled = true
             let page: Int = Int(scrollView.contentOffset.x / scrollView.bounds.width)
             tabBar.selectedItemIndex = page
         }
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView != containerTableView else {
             containerTableViewDidScroll(scrollView: scrollView)
             return
@@ -426,24 +426,24 @@ extension HHTabContentView {
         scrollView.showsVerticalScrollIndicator = !canContentScroll;
     }
     // MARK: tableViewDelegate
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return containerTableViewCell
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return contentScrollView.frame.height
     }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return tabBar.frame.height
     }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return tabBar
     }
 }
 
-class HHContainerTableView: UITableView, UIGestureRecognizerDelegate {
+public class HHContainerTableView: UITableView, UIGestureRecognizerDelegate {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
         //子tableView可以点击状态栏 回到顶部
@@ -460,7 +460,7 @@ class HHContainerTableView: UITableView, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     //是否支持多时候触发
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 import HHUtils
 
-class HHTabItem: UIButton {
+public class HHTabItem: UIButton {
     // 标题
     @objc var title: String? {
         didSet {
@@ -39,7 +39,7 @@ class HHTabItem: UIButton {
     @objc private(set) var indicatorFrame: CGRect = .zero
     
     // 徽标按钮
-    @objc var badgeButton = HHBadgeButton(type: .custom)
+    @objc public var badgeButton = HHBadgeButton(type: .custom)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,7 +63,7 @@ class HHTabItem: UIButton {
         titleEdgeInsets = .zero
     }
     
-    override var frame: CGRect {
+    public override var frame: CGRect {
         didSet {
             frameWithOutTransform = frame
             calculateIndicatorFrame()

@@ -8,14 +8,15 @@
 
 #import "HHTabHeaderViewController.h"
 #import "HHTableViewController.h"
-#import "MJRefresh.h"
+#import <MJRefresh.h>
 #import <HHUtils-Swift.h>
+#import <HHTabBarController-Swift.h>
 
 @interface HHTabHeaderViewController ()
 @property (nonatomic, strong)HHTabContentView *tabContentView;
 @property (nonatomic, strong)UIView *headerView;
 @end
-
+#define WEAKSELF                        __weak __typeof(self) weakSelf = self;
 @implementation HHTabHeaderViewController
 static CGFloat const tabBarHeight = 44;
 - (void)viewDidLoad {
@@ -57,7 +58,7 @@ static CGFloat const tabBarHeight = 44;
                                     headerHeight:250
                                     tabBarHeight:tabBarHeight
                            tabBarStopOnTopHeight:5
-                                           frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, SCREEN_HEIGHT - [UIDevice vg_navigationFullHeight])];
+                                           frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - [UIDevice vg_navigationFullHeight])];
     
     self.tabContentView.interceptRightSlideGuetureInFirstPage = YES;
     

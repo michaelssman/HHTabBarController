@@ -8,6 +8,7 @@
 
 #import "HHTabViewsController.h"
 #import "HHTabContentSubView.h"
+#import <HHTabBarController-Swift.h>
 @interface HHTabViewsController ()
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "HHTableViewController.h"
+#import <HHTabBarController-Swift.h>
 
 @interface HHTableViewController ()<UITableViewDelegate, UITableViewDataSource>
 

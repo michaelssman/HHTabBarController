@@ -7,6 +7,8 @@
 //
 
 #import "HHTabViewController.h"
+#import <HHTabBarController-Swift.h>
+
 @interface HHTabViewController ()
 @property (nonatomic, strong)HHTabContentView *tabContentView;
 
@@ -44,7 +46,7 @@
     self.tabContentView.tabBar.indicatorColor = [UIColor orangeColor];
 //    self.tabBar.indicatorAnimationStyle = YPTabBarIndicatorAnimationStyle2;
     self.tabContentView.tabBar.indicatorCornerRadius = 2.0;
-    [self.tabContentView.tabBar setScrollEnabledAndItemFitTextWidthWithSpacingWithSpacing:30 minWidth:55];
+    [self.tabContentView.tabBar setScrollEnabledAndItemFitTextWidthWithSpacing:30 minWidth:55];
     self.tabContentView.tabBar.selectedItemIndex = 0;
     
 //    [self.tabContentView setSelectedTabIndex:1];

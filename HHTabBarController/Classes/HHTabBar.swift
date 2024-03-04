@@ -23,9 +23,9 @@ protocol HHTabBarDelegate: AnyObject {
     func didSelectedItem(_ tabBar: HHTabBar, oldIndex: Int, newIndex: Int)
 }
 
-class HHTabBar: UIView {
+public class HHTabBar: UIView {
     /// titles setter方法内部会创建items
-    @objc var titles: [String] = [] {
+    @objc public var titles: [String] = [] {
         didSet {
             var tempItems: Array<HHTabItem> = []
             titles.forEach { title in
@@ -37,7 +37,7 @@ class HHTabBar: UIView {
         }
     }
     /// items
-    @objc var items: [HHTabItem] = [] {
+    @objc public var items: [HHTabItem] = [] {
         didSet {
             selectedItemIndex = 0
             //将老的item从superview上移除
@@ -70,7 +70,7 @@ class HHTabBar: UIView {
         }
     }
     /// 设置选中某一个item
-    @objc var selectedItemIndex: Int = 0 {
+    @objc public var selectedItemIndex: Int = 0 {
         didSet {
             //是否可以点击
             if let delegate = delegate {
@@ -107,11 +107,11 @@ class HHTabBar: UIView {
     /// 拖动内容视图时，item的颜色是否根据拖动位置显示渐变效果，默认为true
     @objc var itemColorChangeFollowContentScroll: Bool = true
     /// 拖动内容视图时，item的字体是否根据拖动位置显示渐变效果，默认为true
-    @objc var itemFontChangeFollowContentScroll: Bool = true
+    @objc public var itemFontChangeFollowContentScroll: Bool = true
     /// TabItem的选中背景是否随contentView滑动而移动
-    @objc var indicatorScrollFollowContent: Bool = true
+    @objc public var indicatorScrollFollowContent: Bool = true
     /// TabBar选中切换时，指示器是否有动画
-    @objc var indicatorSwitchAnimated: Bool = false
+    @objc public var indicatorSwitchAnimated: Bool = false
     /// 切换选中item的代理
     weak var delegate: HHTabBarDelegate?
     //已选中的item
@@ -122,7 +122,7 @@ class HHTabBar: UIView {
     }
     // MARK: item样式 ----- start
     /// 标题颜色
-    @objc var itemTitleColor: UIColor = .lightText {
+    @objc public var itemTitleColor: UIColor = .lightText {
         didSet {
             items.forEach { item in
                 item.setTitleColor(itemTitleColor, for: .normal)
@@ -130,7 +130,7 @@ class HHTabBar: UIView {
         }
     }
     /// 选中时标题的颜色
-    @objc var itemTitleSelectedColor: UIColor = .black {
+    @objc public var itemTitleSelectedColor: UIColor = .black {
         didSet {
             items.forEach { item in
                 item.setTitleColor(itemTitleSelectedColor, for: .selected)
@@ -138,7 +138,7 @@ class HHTabBar: UIView {
         }
     }
     /// 标题字体
-    @objc var itemTitleFont: UIFont = .systemFont(ofSize: 10) {
+    @objc public var itemTitleFont: UIFont = .systemFont(ofSize: 10) {
         didSet {
             if itemFontChangeFollowContentScroll {
                 // item字体支持平滑切换，更新每个item的scale
@@ -159,7 +159,7 @@ class HHTabBar: UIView {
         }
     }
     /// 选中时标题的字体
-    @objc var itemTitleSelectedFont: UIFont = .systemFont(ofSize: 15) {
+    @objc public var itemTitleSelectedFont: UIFont = .systemFont(ofSize: 15) {
         didSet {
             selectedItem.titleFont = itemTitleSelectedFont
             updateItemsScaleIfNeeded()
@@ -176,7 +176,7 @@ class HHTabBar: UIView {
         return indicatorImageView
     }()
     /// item指示器颜色
-    @objc var indicatorColor: UIColor = .red {
+    @objc public var indicatorColor: UIColor = .red {
         didSet {
             indicatorImageView.backgroundColor = indicatorColor
         }
@@ -188,7 +188,7 @@ class HHTabBar: UIView {
         }
     }
     /// item指示器圆角
-    @objc var indicatorCornerRadius: CGFloat = 5.0 {
+    @objc public var indicatorCornerRadius: CGFloat = 5.0 {
         didSet {
             indicatorImageView.clipsToBounds = true
             indicatorImageView.layer.cornerRadius = indicatorCornerRadius
@@ -196,7 +196,7 @@ class HHTabBar: UIView {
     }
     /// 指示器样式
     @objc var indicatorStyle: HHTabBarIndicatorStyle = .FitItem
-    @objc var indicatorInsets: UIEdgeInsets = .zero
+    @objc public var indicatorInsets: UIEdgeInsets = .zero
     @objc var indicatorWidth: CGFloat = 55
     @objc var indicatorWidthFixTitleAdditional: CGFloat = 55
     // MARK: 指示器 ----- end
@@ -230,7 +230,7 @@ class HHTabBar: UIView {
         scrollView.clipsToBounds = true
         scrollView.addSubview(indicatorImageView)
     }
-    override var frame: CGRect {
+    public override var frame: CGRect {
         didSet {
             if !CGSizeEqualToSize(oldValue.size, frame.size) {
                 self.scrollView.frame = bounds
@@ -298,7 +298,7 @@ class HHTabBar: UIView {
     // MARK: 设置item的width
     /// item宽度固定
     /// @param width 每个item的固定宽度
-    @objc func setScrollEnabledAndItemWidth(width: CGFloat) {
+    @objc public func setScrollEnabledAndItemWidth(width: CGFloat) {
         scrollView.isScrollEnabled = true
         itemWidth = width
         itemFitTextWidth = false
@@ -311,7 +311,7 @@ class HHTabBar: UIView {
     /// - Parameters:
     ///   - spacing: item的width的space
     ///   - minWidth: 最小宽度
-    @objc func setScrollEnabledAndItemFitTextWidthWithSpacing(spacing: CGFloat, minWidth: CGFloat) {
+    @objc public func setScrollEnabledAndItemFitTextWidth(spacing: CGFloat, minWidth: CGFloat) {
         scrollView.isScrollEnabled = true
         itemWidth = 0
         itemFitTextWidth = true
@@ -330,7 +330,7 @@ class HHTabBar: UIView {
     /// 此方法与setIndicatorWidthFixTextWithTop互斥，后调用着生效
     /// @param insets 选中背景的insets
     /// @param animated 点击item进行背景切换的时候，是否支持动画
-    func setIndicator(insets: UIEdgeInsets, animated: Bool) {
+    @objc public func setIndicator(insets: UIEdgeInsets, animated: Bool) {
         indicatorStyle = .FitItem
         indicatorSwitchAnimated = animated
         indicatorInsets = insets
