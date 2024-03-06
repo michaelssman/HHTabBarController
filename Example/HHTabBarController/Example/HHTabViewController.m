@@ -36,14 +36,13 @@
     self.tabContentView.tabBar.itemTitleSelectedColor = [UIColor blueColor];
     self.tabContentView.tabBar.itemTitleFont = [UIFont systemFontOfSize:11];
     self.tabContentView.tabBar.itemTitleSelectedFont = [UIFont boldSystemFontOfSize:15];
-    self.tabContentView.tabBar.itemFontChangeFollowContentScroll = YES;
 
     self.tabContentView.tabBar.backgroundColor = [UIColor whiteColor];
 //    self.loadViewOfChildContollerWhileAppear = YES;
 //    [self setContentScrollEnabled:YES tapSwitchAnimated:YES];
     
     self.tabContentView.tabBar.indicatorScrollFollowContent = YES;
-    self.tabContentView.tabBar.indicatorColor = [UIColor orangeColor];
+    self.tabContentView.tabBar.indicatorImageView.backgroundColor = [UIColor orangeColor];
 //    self.tabBar.indicatorAnimationStyle = YPTabBarIndicatorAnimationStyle2;
     self.tabContentView.tabBar.indicatorCornerRadius = 2.0;
     [self.tabContentView.tabBar setScrollEnabledAndItemFitTextWidthWithSpacing:30 minWidth:55];
@@ -73,8 +72,8 @@
         //        badgeButton.badgeStyle = HHTabItemBadgeStyleNumber;
         badgeButton.badgeTitleFont = [UIFont systemFontOfSize:15];
         badgeButton.badge = 35;
-        badgeButton.badgeBackgroundColor = [UIColor cyanColor];
-        badgeButton.badgeTitleColor = [UIColor blueColor];
+        badgeButton.backgroundColor = [UIColor cyanColor];
+        [badgeButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [badgeButton setNumberBadgeWithMarginTop:0 centerMarginRight:0 titleHorizonalSpace:0 titleVerticalSpace:0];
         NSLog(@"badgeFrame:%@",NSStringFromCGRect(badgeButton.frame));
     }

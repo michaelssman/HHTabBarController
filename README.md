@@ -46,6 +46,11 @@ HHTabBarController is available under the MIT license. See the LICENSE file for 
     2. 指示器的frame   根据Insets计算指示器的frame
 ### HHTabBar
 自定义view，上面添加一个scrollView，scrollView上添加items。
+
+默认已有功能：
+1. item的颜色根据拖动位置显示渐变效果
+2. item的字体根据拖动位置显示渐变效果
+
 点击items中button会调用下面三个代理方法：
 - 三个代理方法：
     1. 是否能切换到指定index
@@ -56,9 +61,12 @@ HHTabBarController is available under the MIT license. See the LICENSE file for 
     两种方式
     1. 设置items
     2. 通过设置titles来创建items
-- 指示器`_indicatorImageView`
+- indicatorImageView（指示器）
+    是一个UIImageView
     1. 指示器颜色
+    indicatorImageView.backgroundColor = indicatorColor
     2. 指示器图像
+    indicatorImageView.image = indicatorImage
     3. 指示器圆角
     4. 指示器动画
     5. 指示器样式，frame。
@@ -90,6 +98,17 @@ HHTabBarController is available under the MIT license. See the LICENSE file for 
 #### 点击tabBar的item
 setItems创建item的时候`addTarget`，响应方法中设置tabBar的selectedItemIndex。setSelectedItemIndex方法中改变字体颜色和指示器位置。
 
+### HHBadgeButton
+角标是一个Button
+```
+// badge的背景颜色
+self.backgroundColor = badgeBackgroundColor
+// badge的背景图片
+self.setBackgroundImage(badgeBackgroundImage, for: .normal)
+// badge的标题颜色
+self.setTitleColor(badgeTitleColor, for: .normal)
+```swift
+    
 ### HHTabContentView
 #### 不带头部 内容是一个contentScrollView
 - contentScrollView

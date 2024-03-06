@@ -27,7 +27,7 @@ public class HHTabBar: UIView {
     /// titles setter方法内部会创建items
     @objc public var titles: [String] = [] {
         didSet {
-            var tempItems: Array<HHTabItem> = []
+            var tempItems: [HHTabItem] = []
             titles.forEach { title in
                 let item: HHTabItem = HHTabItem()
                 item.title = title
@@ -40,7 +40,7 @@ public class HHTabBar: UIView {
     @objc public var items: [HHTabItem] = [] {
         didSet {
             selectedItemIndex = 0
-            //将老的item从superview上移除
+            //将老的items从superview上移除
             oldValue.forEach { item in
                 item.removeFromSuperview()
             }
@@ -56,6 +56,10 @@ public class HHTabBar: UIView {
             updateItemsScaleIfNeeded()
             updateAllUI()
         }
+    }
+    //点击tabBar的item
+    @objc func tabItemClicked(sender: HHTabItem) {
+        selectedItemIndex = sender.tag
     }
     /// 第一个item与左边或者上边的距离
     var leadingSpace: CGFloat = 0 {
@@ -82,19 +86,13 @@ public class HHTabBar: UIView {
             }
             let oldSelectedItem: HHTabItem = items[oldValue]
             oldSelectedItem.isSelected = false
-            if itemFontChangeFollowContentScroll {
-                // 如果支持字体平滑渐变切换，则设置item的scale
-                oldSelectedItem.transform = CGAffineTransformMakeScale(itemTitleUnselectedFontScale(), itemTitleUnselectedFontScale())
-                oldSelectedItem.titleFont = itemTitleFont.withSize(itemTitleSelectedFont.pointSize)
-            } else {
-                oldSelectedItem.titleFont = itemTitleFont
-            }
+            // 支持字体平滑渐变切换，则设置item的scale
+            oldSelectedItem.transform = CGAffineTransformMakeScale(itemTitleUnselectedFontScale(), itemTitleUnselectedFontScale())
+            oldSelectedItem.titleFont = itemTitleFont.withSize(itemTitleSelectedFont.pointSize)
             let newSelectedItem: HHTabItem = items[selectedItemIndex]
             newSelectedItem.isSelected = true
-            if itemFontChangeFollowContentScroll {
-                // 如果支持字体平滑渐变切换，则设置item的scale
-                newSelectedItem.transform = CGAffineTransformMakeScale(1, 1)
-            }
+            // 支持字体平滑渐变切换，则设置item的scale
+            newSelectedItem.transform = CGAffineTransformMakeScale(1, 1)
             newSelectedItem.titleFont = itemTitleSelectedFont
             UIView.animate(withDuration: 0.25) { [self] in
                 updateIndicatorFrame(index: selectedItemIndex)
@@ -104,10 +102,6 @@ public class HHTabBar: UIView {
             delegate?.didSelectedItem(self, oldIndex: oldValue, newIndex: selectedItemIndex)
         }
     }
-    /// 拖动内容视图时，item的颜色是否根据拖动位置显示渐变效果，默认为true
-    @objc var itemColorChangeFollowContentScroll: Bool = true
-    /// 拖动内容视图时，item的字体是否根据拖动位置显示渐变效果，默认为true
-    @objc public var itemFontChangeFollowContentScroll: Bool = true
     /// TabItem的选中背景是否随contentView滑动而移动
     @objc public var indicatorScrollFollowContent: Bool = true
     /// TabBar选中切换时，指示器是否有动画
@@ -120,7 +114,7 @@ public class HHTabBar: UIView {
             return items[selectedItemIndex]
         }
     }
-    // MARK: item样式 ----- start
+    // MARK: item样式
     /// 标题颜色
     @objc public var itemTitleColor: UIColor = .lightText {
         didSet {
@@ -140,17 +134,8 @@ public class HHTabBar: UIView {
     /// 标题字体
     @objc public var itemTitleFont: UIFont = .systemFont(ofSize: 10) {
         didSet {
-            if itemFontChangeFollowContentScroll {
-                // item字体支持平滑切换，更新每个item的scale
-                updateItemsScaleIfNeeded()
-            } else {
-                // 更新未选中的item
-                items.forEach { item in
-                    if !item.isSelected {
-                        item.titleFont = itemTitleFont
-                    }
-                }
-            }
+            // item字体支持平滑切换，更新每个item的scale
+            updateItemsScaleIfNeeded()
             if itemFitTextWidth {
                 // 如果item的宽度是匹配文字的，更新item的位置
                 updateItemsFrame();
@@ -167,26 +152,14 @@ public class HHTabBar: UIView {
     }
     /// item是否匹配title的文字宽度
     var itemFitTextWidth: Bool = true
-    // MARK: item样式 ----- end
     
-    // MARK: 指示器 ----- start
+    // MARK: 指示器
     /// 选中背景
-    lazy var indicatorImageView: UIImageView = {
+    @objc public lazy var indicatorImageView: UIImageView = {
         let indicatorImageView: UIImageView = UIImageView(frame: .zero)
         return indicatorImageView
     }()
-    /// item指示器颜色
-    @objc public var indicatorColor: UIColor = .red {
-        didSet {
-            indicatorImageView.backgroundColor = indicatorColor
-        }
-    }
-    /// item指示器图像
-    @objc var indicatorImage: UIImage = UIImage() {
-        didSet {
-            indicatorImageView.image = indicatorImage
-        }
-    }
+
     /// item指示器圆角
     @objc public var indicatorCornerRadius: CGFloat = 5.0 {
         didSet {
@@ -199,7 +172,6 @@ public class HHTabBar: UIView {
     @objc public var indicatorInsets: UIEdgeInsets = .zero
     @objc var indicatorWidth: CGFloat = 55
     @objc var indicatorWidthFixTitleAdditional: CGFloat = 55
-    // MARK: 指示器 ----- end
     
     /// TabBar支持滚动时，需要使用此scrollView
     lazy var scrollView: UIScrollView = {
@@ -207,6 +179,7 @@ public class HHTabBar: UIView {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.isScrollEnabled = false
+        scrollView.clipsToBounds = true
         return scrollView
     }()
     /// 当item匹配title的文字宽度时，左右留出空隙，item的宽度 = 文字宽度 + spacing
@@ -225,9 +198,8 @@ public class HHTabBar: UIView {
     }
     private func setup() {
         backgroundColor = .white
-        addSubview(scrollView)
         clipsToBounds = true
-        scrollView.clipsToBounds = true
+        addSubview(scrollView)
         scrollView.addSubview(indicatorImageView)
     }
     public override var frame: CGRect {
@@ -246,7 +218,7 @@ public class HHTabBar: UIView {
     }
     /// 更新item字体的大小缩放
     private func updateItemsScaleIfNeeded() {
-        if itemFontChangeFollowContentScroll, itemTitleSelectedFont.pointSize != itemTitleFont.pointSize {
+        if itemTitleSelectedFont.pointSize != itemTitleFont.pointSize {
             let normalFont: UIFont = itemTitleFont.withSize(itemTitleSelectedFont.pointSize)
             items.forEach { item in
                 if item.isSelected {
@@ -297,7 +269,7 @@ public class HHTabBar: UIView {
     
     // MARK: 设置item的width
     /// item宽度固定
-    /// @param width 每个item的固定宽度
+    /// - Parameter width: 每个item的固定宽度
     @objc public func setScrollEnabledAndItemWidth(width: CGFloat) {
         scrollView.isScrollEnabled = true
         itemWidth = width
@@ -318,11 +290,6 @@ public class HHTabBar: UIView {
         itemFitTextWidthSpacing = spacing
         itemMinWidth = minWidth
         updateItemsFrame()
-    }
-    
-    //点击tabBar的item
-    @objc func tabItemClicked(sender: HHTabItem) {
-        selectedItemIndex = sender.tag
     }
     
     // MARK: 指示器----- start
@@ -440,7 +407,7 @@ public class HHTabBar: UIView {
         rightScale = rightScale - CGFloat(leftIndex)
         let leftScale: CGFloat = 1 - rightScale
         //item字体渐变
-        if itemFontChangeFollowContentScroll, itemTitleUnselectedFontScale() != 1.0 {
+        if itemTitleUnselectedFontScale() != 1.0 {
             // 如果支持title大小跟随content的拖动进行变化，并且未选中字体和已选中字体的大小不一致
             // 计算字体大小的差值
             let diff: CGFloat = itemTitleUnselectedFontScale() - 1
@@ -450,22 +417,20 @@ public class HHTabBar: UIView {
         }
         
         // item颜色渐变
-        if (itemColorChangeFollowContentScroll) {
-            var normalRed: CGFloat = 0, normalGreen: CGFloat = 0, normalBlue: CGFloat = 0, normalAlpha: CGFloat = 0
-            var selectedRed: CGFloat = 0, selectedGreen: CGFloat = 0, selectedBlue: CGFloat = 0, selectedAlpha: CGFloat = 0
-            itemTitleColor.getRed(&normalRed, green: &normalGreen, blue: &normalBlue, alpha: &normalAlpha)
-            itemTitleSelectedColor.getRed(&selectedRed, green: &selectedGreen, blue: &selectedBlue, alpha: &selectedAlpha)
-            // 获取选中和未选中状态的颜色差值
-            let redDiff: CGFloat = selectedRed - normalRed
-            let greenDiff: CGFloat = selectedGreen - normalGreen
-            let blueDiff: CGFloat = selectedBlue - normalBlue
-            let alphaDiff: CGFloat = selectedAlpha - normalAlpha
-            // 根据颜色值的差值和偏移量，设置tabItem的标题颜色
-            let leftColor: UIColor = UIColor(red: leftScale * redDiff + normalRed, green: leftScale * greenDiff + normalGreen, blue: leftScale * blueDiff + normalBlue, alpha: leftScale * alphaDiff + normalAlpha)
-            let rightColor: UIColor = UIColor(red: rightScale * redDiff + normalRed, green: rightScale * greenDiff + normalGreen, blue: rightScale * blueDiff + normalBlue, alpha: rightScale * alphaDiff + normalAlpha)
-            leftItem.titleLabel?.textColor = leftColor
-            rightItem.titleLabel?.textColor = rightColor
-        }
+        var normalRed: CGFloat = 0, normalGreen: CGFloat = 0, normalBlue: CGFloat = 0, normalAlpha: CGFloat = 0
+        var selectedRed: CGFloat = 0, selectedGreen: CGFloat = 0, selectedBlue: CGFloat = 0, selectedAlpha: CGFloat = 0
+        itemTitleColor.getRed(&normalRed, green: &normalGreen, blue: &normalBlue, alpha: &normalAlpha)
+        itemTitleSelectedColor.getRed(&selectedRed, green: &selectedGreen, blue: &selectedBlue, alpha: &selectedAlpha)
+        // 获取选中和未选中状态的颜色差值
+        let redDiff: CGFloat = selectedRed - normalRed
+        let greenDiff: CGFloat = selectedGreen - normalGreen
+        let blueDiff: CGFloat = selectedBlue - normalBlue
+        let alphaDiff: CGFloat = selectedAlpha - normalAlpha
+        // 根据颜色值的差值和偏移量，设置tabItem的标题颜色
+        let leftColor: UIColor = UIColor(red: leftScale * redDiff + normalRed, green: leftScale * greenDiff + normalGreen, blue: leftScale * blueDiff + normalBlue, alpha: leftScale * alphaDiff + normalAlpha)
+        let rightColor: UIColor = UIColor(red: rightScale * redDiff + normalRed, green: rightScale * greenDiff + normalGreen, blue: rightScale * blueDiff + normalBlue, alpha: rightScale * alphaDiff + normalAlpha)
+        leftItem.titleLabel?.textColor = leftColor
+        rightItem.titleLabel?.textColor = rightColor
         
         // 指示器frame
         if (indicatorScrollFollowContent) {

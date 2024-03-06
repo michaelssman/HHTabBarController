@@ -24,27 +24,6 @@ public class HHBadgeButton: UIButton {
     // badge的样式
     var badgeStyle: HHTabItemBadgeStyle = .number
     
-    // badge的背景颜色
-    @objc public var badgeBackgroundColor: UIColor? {
-        didSet {
-            self.backgroundColor = badgeBackgroundColor
-        }
-    }
-    
-    // badge的背景图片
-    @objc var badgeBackgroundImage: UIImage? {
-        didSet {
-            self.setBackgroundImage(badgeBackgroundImage, for: .normal)
-        }
-    }
-    
-    // badge的标题颜色
-    @objc public var badgeTitleColor: UIColor? {
-        didSet {
-            self.setTitleColor(badgeTitleColor, for: .normal)
-        }
-    }
-    
     // badge的标题字体
     @objc public var badgeTitleFont: UIFont? {
         didSet {
@@ -103,13 +82,12 @@ public class HHBadgeButton: UIButton {
                 } else if badge < -99 {
                     badgeStr = "-99+"
                 }
-                // 计算badgeStr的size
                 setTitle(badgeStr, for: .normal)
+                // 计算badgeStr的size
                 let size = badgeStr.calculateStringSize(font: (titleLabel?.font)!)
                 // 计算badgeButton的宽度和高度
                 var width = ceil(size.width) + numberBadgeTitleHorizonalSpace
                 let height = ceil(size.height) + numberBadgeTitleVerticalSpace
-                
                 // 宽度取width和height的较大值，使badge为个数时，badgeButton为圆形
                 width = max(width, height)
                 // 设置badgedButton的frame

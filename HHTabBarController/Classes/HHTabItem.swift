@@ -38,7 +38,7 @@ public class HHTabItem: UIButton {
     // 指示器frame
     @objc private(set) var indicatorFrame: CGRect = .zero
     
-    // 徽标按钮
+    // 徽标（角标）按钮
     @objc public var badgeButton = HHBadgeButton(type: .custom)
     
     override init(frame: CGRect) {

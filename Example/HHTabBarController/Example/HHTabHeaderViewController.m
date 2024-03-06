@@ -67,11 +67,9 @@ static CGFloat const tabBarHeight = 44;
     self.tabContentView.tabBar.itemTitleFont = [UIFont systemFontOfSize:17];
     self.tabContentView.tabBar.itemTitleSelectedFont = [UIFont systemFontOfSize:22];
     
-    self.tabContentView.tabBar.itemFontChangeFollowContentScroll = YES;
-    
     //    self.tabBar.indicatorAnimationStyle = HHTabBarIndicatorAnimationStyleDefault;
     self.tabContentView.tabBar.indicatorScrollFollowContent = YES;
-    self.tabContentView.tabBar.indicatorColor = [UIColor redColor];
+    self.tabContentView.tabBar.indicatorImageView.backgroundColor = [UIColor redColor];
     [self.tabContentView.tabBar setIndicatorInsets:UIEdgeInsetsMake(40, 10, 0, 10)];
     self.tabContentView.tabBar.selectedItemIndex = 0;
     [self addRefreshHeader];
