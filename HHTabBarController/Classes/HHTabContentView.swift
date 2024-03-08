@@ -23,7 +23,7 @@ protocol HHTabContentViewDelegate: NSObjectProtocol {
     func didSelectedTab(_ tabContentView: HHTabContentView, index: Int)
 }
 
-public class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+public class HHTabContentView: UIView {
     /// 内容视图
     lazy var contentScrollView: HHTabContentScrollView = {
         let contentScrollView: HHTabContentScrollView = HHTabContentScrollView(frame: self.bounds)
@@ -38,10 +38,6 @@ public class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewD
     private(set) var headerView: UIView?
     var headerViewDefaultHeight: CGFloat = 0
     var tabBarStopOnTopHeight: CGFloat = 0
-    lazy var containerTableViewCell: UITableViewCell = {
-        let containerTableViewCell: UITableViewCell = UITableViewCell()
-        return containerTableViewCell
-    }()
     //带有header和section的整个的tableView滚
     var canContentScroll: Bool = true
     var headerStyle: HHTabHeaderStyle = .Follow
@@ -59,12 +55,8 @@ public class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewD
             return
         }
         //下拉刷新整个页面的时候，
-        if (self.headerView != nil) {
-            self.headerView?.removeFromSuperview()
-        }
-        if (self.containerTableView != nil) {
-            self.containerTableView?.removeFromSuperview()
-        }
+        self.headerView?.removeFromSuperview()
+        self.containerTableView?.removeFromSuperview()
         self.frame = frame
         self.headerView = headerView
         self.headerStyle = style
@@ -72,24 +64,24 @@ public class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewD
         self.tabBarStopOnTopHeight = tabBarStopOnTopHeight
         contentScrollView.removeFromSuperview()
         containerTableView = HHContainerTableView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height), style: .plain)
-        containerTableView?.delegate = self
-        containerTableView?.dataSource = self
+        guard let containerTableView = containerTableView else { return }
+        containerTableView.delegate = self
+        containerTableView.dataSource = self
         if style == .Stretch {
             let view: UIView = UIView(frame: self.headerView!.bounds)
-            containerTableView?.tableHeaderView = view
-            containerTableView?.addSubview(self.headerView!)
+            containerTableView.tableHeaderView = view
+            containerTableView.addSubview(self.headerView!)
         } else {
-            containerTableView?.tableHeaderView = self.headerView
+            containerTableView.tableHeaderView = self.headerView
         }
         if #available(iOS 11.0, *) {
-            containerTableView?.contentInsetAdjustmentBehavior = .never
+            containerTableView.contentInsetAdjustmentBehavior = .never
         } else {
             // Fallback on earlier versions
         }
-        addSubview(containerTableView!)
+        addSubview(containerTableView)
         contentScrollView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: frame.height - tabBarHeight - tabBarStopOnTopHeight)
         tabBar.frame = CGRect(x: tabBar.frame.origin.x, y: 0, width: tabBar.bounds.width, height: tabBarHeight)
-        containerTableViewCell.contentView.addSubview(contentScrollView)
         updateContentViewsFrame()
     }
     
@@ -98,7 +90,7 @@ public class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewD
             tabBar.delegate = self
         }
     }
-    @objc public var views: Array<UIView> = [] {
+    @objc public var views: [UIView] = [] {
         didSet {
             for (index, view) in views.enumerated() {
                 view.frame = frameAtIndex(index: index)
@@ -171,19 +163,16 @@ public class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewD
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _setup()
+        backgroundColor = .white
+        clipsToBounds = true
+        addSubview(contentScrollView)
+        tabBar.delegate = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func _setup() {
-        backgroundColor = .white
-        clipsToBounds = true
-        addSubview(contentScrollView)
-        tabBar.delegate = self
-    }
     public override var frame: CGRect {
         didSet {
             if !CGRectEqualToRect(frame, .zero) {
@@ -232,14 +221,36 @@ public class HHTabContentView: UIView, HHTabBarDelegate, HHTabContentScrollViewD
     }
 }
 
-extension HHTabContentView {
-    // MARK: HHTabBarDelegate
+extension HHTabContentView: UITableViewDelegate, UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "containerTableViewCell") {
+            return cell
+        }
+        let cell: UITableViewCell = UITableViewCell(style: .default, reuseIdentifier: "containerTableViewCell")
+        cell.contentView.addSubview(contentScrollView)
+        return cell
+    }
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return contentScrollView.frame.height
+    }
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return tabBar.frame.height
+    }
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return tabBar
+    }
+}
+
+extension HHTabContentView: HHTabBarDelegate {
     func shouldSelectItem(_ tabBar: HHTabBar, index: Int) -> Bool {
         return shouldSelectItem(index: index)
     }
     func willSelectItem(_ tabBar: HHTabBar, index: Int) {
-        if delegate != nil {
-            delegate?.willSelectTab(self, index: index)
+        if let delegate = delegate {
+            delegate.willSelectTab(self, index: index)
         }
     }
     /// 点击tab，切换内容页
@@ -284,17 +295,20 @@ extension HHTabContentView {
             let scrollView: UIScrollView = curController.view as! UIScrollView
             scrollView.scrollsToTop = true
         }
-        if delegate != nil {
-            delegate?.didSelectedTab(self, index: newIndex)
+        if let delegate = delegate {
+            delegate.didSelectedTab(self, index: newIndex)
         }
     }
-    
-    // MARK: HHTabContentScrollViewDelegate
-    func scrollView(_ scrollView: HHTabContentScrollView, shouldScrollToPageIndex index: Int) -> Bool {
+}
+
+extension HHTabContentView: HHTabContentScrollViewDelegate {
+    func shouldScrollToPageIndex(_ scrollView: HHTabContentScrollView, index: Int) -> Bool {
         return shouldSelectItem(index: index)
     }
-    
-    // MARK: UIScrollViewDelegate
+}
+
+// MARK: 滚动逻辑处理
+extension HHTabContentView: UIScrollViewDelegate {
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == contentScrollView {
             containerTableView?.isScrollEnabled = true
@@ -303,13 +317,37 @@ extension HHTabContentView {
         }
     }
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView != containerTableView else {
-            containerTableViewDidScroll(scrollView: scrollView)
+        /// 带有header的整个tableView的滑动
+        if scrollView == containerTableView {
+            print("内容视图竖向滚动时的y坐标偏移量\(scrollView.contentOffset.y)")
+            if (headerStyle == .None) {
+                containerTableView!.contentOffset = .zero
+                return
+            }
+            let offsetY: CGFloat = scrollView.contentOffset.y
+            let stopY: CGFloat = headerViewDefaultHeight - tabBarStopOnTopHeight;
+            
+            if !canContentScroll {
+                // 这里通过固定contentOffset的值，来实现不滚动
+                containerTableView!.contentOffset = CGPoint(x: 0, y: stopY)
+            } else if (containerTableView!.contentOffset.y >= stopY) {
+                containerTableView!.contentOffset = CGPoint(x: 0, y: stopY)
+                canContentScroll = false
+            }
+            if (headerStyle == .OnlyUp) {
+            }
+            
+            if (headerStyle == .Stretch) {
+                if (offsetY <= 0) {
+                    headerView!.frame = CGRect(x: 0, y: offsetY, width: headerView!.frame.size.width, height: headerViewDefaultHeight - offsetY)
+                }
+            }
+            scrollView.showsVerticalScrollIndicator = canContentScroll
             return
         }
         // 如果不是手势拖动导致的此方法被调用，不处理
-        if (!(scrollView.isDragging || scrollView.isDecelerating)) {
-            return;
+        guard (scrollView.isDragging || scrollView.isDecelerating) else {
+            return
         }
         containerTableView?.isScrollEnabled = false
         //        print("左右滑动")
@@ -361,34 +399,6 @@ extension HHTabContentView {
         }
         return true
     }
-    // MARK: 滚动逻辑处理
-    /// 带有header的整个tableView的滑动
-    func containerTableViewDidScroll(scrollView: UIScrollView) {
-        print("内容视图竖向滚动时的y坐标偏移量\(scrollView.contentOffset.y)")
-        if (headerStyle == .None) {
-            containerTableView!.contentOffset = .zero
-            return
-        }
-        let offsetY: CGFloat = scrollView.contentOffset.y
-        let stopY: CGFloat = headerViewDefaultHeight - tabBarStopOnTopHeight;
-        
-        if !canContentScroll {
-            // 这里通过固定contentOffset的值，来实现不滚动
-            containerTableView!.contentOffset = CGPoint(x: 0, y: stopY)
-        } else if (containerTableView!.contentOffset.y >= stopY) {
-            containerTableView!.contentOffset = CGPoint(x: 0, y: stopY)
-            canContentScroll = false
-        }
-        if (headerStyle == .OnlyUp) {
-        }
-        
-        if (headerStyle == .Stretch) {
-            if (offsetY <= 0) {
-                headerView!.frame = CGRect(x: 0, y: offsetY, width: headerView!.frame.size.width, height: headerViewDefaultHeight - offsetY)
-            }
-        }
-        scrollView.showsVerticalScrollIndicator = canContentScroll
-    }
     /// 子tableView的滑动
     func childScrollViewDidScroll(scrollView: UIScrollView) {
         print("子tableView的滑动滑动\(scrollView.contentOffset.y)")
@@ -424,22 +434,6 @@ extension HHTabContentView {
             }
         }
         scrollView.showsVerticalScrollIndicator = !canContentScroll;
-    }
-    // MARK: tableViewDelegate
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return containerTableViewCell
-    }
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return contentScrollView.frame.height
-    }
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tabBar.frame.height
-    }
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return tabBar
     }
 }
 
@@ -499,11 +493,10 @@ class HHTabContentScrollView: UIScrollView {
     
     //重写此方法，在需要的时候，拦截UIPanGestureRecognizer
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let panGestureRecognizer: UIPanGestureRecognizer? = gestureRecognizer as? UIPanGestureRecognizer
-        guard let panGestureRecognizer = panGestureRecognizer else { return true }
+        guard let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer else { return true }
         
         //计算可能切换到的index
-        let currentIndex: Int = Int(self.contentOffset.x / self.frame.size.width)
+        let currentIndex: Int = Int(contentOffset.x / frame.size.width)
         var targetIndex: Int = currentIndex
         
         let translation: CGPoint = panGestureRecognizer.translation(in: self)
@@ -514,21 +507,21 @@ class HHTabContentScrollView: UIScrollView {
         }
         
         //第一页往右滑动
-        if self.interceptRightSlideGuetureInFirstPage, targetIndex < 0 {
+        if interceptRightSlideGuetureInFirstPage, targetIndex < 0 {
             return false
         }
         
         //最后一页往左滑动
-        if self.interceptLeftSlideGuetureInLastPage {
-            let numberOfPage: Int = Int(self.contentSize.width / self.frame.size.width)
+        if interceptLeftSlideGuetureInLastPage {
+            let numberOfPage: Int = Int(contentSize.width / frame.size.width)
             if (targetIndex >= numberOfPage) {
                 return false
             }
         }
         
         //其他情况
-        if self.hh_delegete != nil, self.hh_delegete!.responds(to: #selector(HHTabContentScrollViewDelegate.shouldScrollToPageIndex(_: index:))) {
-            return self.hh_delegete!.shouldScrollToPageIndex!(self, index: targetIndex)
+        if let hh_delegate = hh_delegete, hh_delegate.responds(to: #selector(HHTabContentScrollViewDelegate.shouldScrollToPageIndex(_: index:))) {
+            return hh_delegate.shouldScrollToPageIndex!(self, index: targetIndex)
         }
         
         return true

@@ -366,6 +366,7 @@ public class HHTabBar: UIView {
     }
     // MARK: 指示器----- end
     //获取未选中字体与选中字体大小的比例
+    @inline(__always)
     func itemTitleUnselectedFontScale() -> CGFloat {
         return itemTitleFont.pointSize / itemTitleSelectedFont.pointSize
     }

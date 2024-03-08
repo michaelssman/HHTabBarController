@@ -26,7 +26,7 @@
     tabBar.backgroundColor = [UIColor lightGrayColor];
     //先设置数据源，再设置下面属性，包括frame
     [tabBar setTitles:array];
-    tabBar.indicatorColor = [UIColor purpleColor];
+    tabBar.indicatorImageView.backgroundColor = [UIColor purpleColor];
     tabBar.indicatorSwitchAnimated = YES;
     tabBar.indicatorCornerRadius = 20.0;
     tabBar.itemTitleColor = [UIColor cyanColor];
@@ -37,7 +37,6 @@
     [tabBar setScrollEnabledAndItemWidthWithWidth:110];
     //这个要在setTitles后面设置
 //    tabBar.selectedItemIndex = 0;
-    tabBar.itemFontChangeFollowContentScroll = YES;
     tabBar.indicatorScrollFollowContent = YES;
 //    tabBar.indicatorAnimationStyle = HHTabBarIndicatorAnimationStyleDefault;
     [self.view addSubview:tabBar];

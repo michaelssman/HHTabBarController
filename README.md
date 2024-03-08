@@ -31,6 +31,17 @@ HHTabBarController is available under the MIT license. See the LICENSE file for 
 ## HHTabBarController
 自定义左右切换按钮
 
+### HHBadgeButton
+角标是一个Button
+```swift
+// badge的背景颜色
+self.backgroundColor = badgeBackgroundColor
+// badge的背景图片
+self.setBackgroundImage(badgeBackgroundImage, for: .normal)
+// badge的标题颜色
+self.setTitleColor(badgeTitleColor, for: .normal)
+```
+
 ### HHTabItem
 自定义button
 要把点击效果去除
@@ -44,13 +55,12 @@ HHTabBarController is available under the MIT license. See the LICENSE file for 
 - indicator
     1. 指示器Insets
     2. 指示器的frame   根据Insets计算指示器的frame
+    
 ### HHTabBar
 自定义view，上面添加一个scrollView，scrollView上添加items。
-
 默认已有功能：
 1. item的颜色根据拖动位置显示渐变效果
 2. item的字体根据拖动位置显示渐变效果
-
 点击items中button会调用下面三个代理方法：
 - 三个代理方法：
     1. 是否能切换到指定index
@@ -97,17 +107,6 @@ HHTabBarController is available under the MIT license. See the LICENSE file for 
 根据HHTabContentView内容的滚动，tabBar的item字体颜色和指示器位置要随着滑动而更改。
 #### 点击tabBar的item
 setItems创建item的时候`addTarget`，响应方法中设置tabBar的selectedItemIndex。setSelectedItemIndex方法中改变字体颜色和指示器位置。
-
-### HHBadgeButton
-角标是一个Button
-```
-// badge的背景颜色
-self.backgroundColor = badgeBackgroundColor
-// badge的背景图片
-self.setBackgroundImage(badgeBackgroundImage, for: .normal)
-// badge的标题颜色
-self.setTitleColor(badgeTitleColor, for: .normal)
-```swift
     
 ### HHTabContentView
 #### 不带头部 内容是一个contentScrollView
@@ -125,9 +124,7 @@ self.setTitleColor(badgeTitleColor, for: .normal)
 #### 带有头部header 内容是containerTableView
 主要是设置父tableView和子tableView的滑动。
 - 整个View是tableView
-    tableView只有一个cell。cell里面是scrollView，scorllView中有很多Controller的view。tabBar是tableView的组头sectionHeaderView。
-
-
+    tableView只有一个cell。cell里面是contentScrollView，contentScrollView中有很多Controller的view。tabBar是tableView的组头sectionHeaderView。
 - header头部固定不动的话，只需要设置tabBarStopOnTopHeight为header的高度即可。
 
 向下滑动scrollView.contentOffset.y<0
@@ -143,6 +140,3 @@ self.containerTableView.contentOffset.y <= 0 父tableView不滑动，子tableVie
 ### 更新frame
 #### setFrame
 tabContentView和tabBar的frame初始的时候可能没有设置，setFrame的时候需要更新items和views的frame。
-
-
-先设置
