@@ -37,7 +37,6 @@
     [tabBar setScrollEnabledAndItemWidthWithWidth:110];
     //这个要在setTitles后面设置
 //    tabBar.selectedItemIndex = 0;
-    tabBar.indicatorScrollFollowContent = YES;
 //    tabBar.indicatorAnimationStyle = HHTabBarIndicatorAnimationStyleDefault;
     [self.view addSubview:tabBar];
     [tabBar setIndicatorInsets:UIEdgeInsetsMake(35, 0, 0, 0)];

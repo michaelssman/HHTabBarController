@@ -41,7 +41,6 @@
 //    self.loadViewOfChildContollerWhileAppear = YES;
 //    [self setContentScrollEnabled:YES tapSwitchAnimated:YES];
     
-    self.tabContentView.tabBar.indicatorScrollFollowContent = YES;
     self.tabContentView.tabBar.indicatorImageView.backgroundColor = [UIColor orangeColor];
 //    self.tabBar.indicatorAnimationStyle = YPTabBarIndicatorAnimationStyle2;
     self.tabContentView.tabBar.indicatorCornerRadius = 2.0;

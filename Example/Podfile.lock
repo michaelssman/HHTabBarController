@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (5.9.0)
-  - HHTabBarController (0.1.1):
+  - HHTabBarController (0.1.2):
     - HHUtils
     - MJRefresh
   - HHUtils (0.4.4):
@@ -37,7 +37,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
-  HHTabBarController: 79480ec40abace79c5c44deb36a01b7bd16fe746
+  HHTabBarController: 605f7a0789b144500e8c72fa334cb4f70369383f
   HHUtils: 9c55801036931962893f10899bc2f79c79f511b3
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: 2fe7fb43a5167ceda20bb7e63f130c04fd1814a5

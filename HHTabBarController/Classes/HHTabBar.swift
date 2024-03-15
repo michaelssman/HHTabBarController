@@ -11,7 +11,8 @@ import UIKit
 @objc enum HHTabBarIndicatorStyle: Int {
     case FitItem
     case FitTitle
-    case FixedWidth ///固定宽度
+    /// 固定宽度
+    case FixedWidth
 }
 
 protocol HHTabBarDelegate: AnyObject {
@@ -102,8 +103,6 @@ public class HHTabBar: UIView {
             delegate?.didSelectedItem(self, oldIndex: oldValue, newIndex: selectedItemIndex)
         }
     }
-    /// TabItem的选中背景是否随contentView滑动而移动
-    @objc public var indicatorScrollFollowContent: Bool = true
     /// TabBar选中切换时，指示器是否有动画
     @objc public var indicatorSwitchAnimated: Bool = false
     /// 切换选中item的代理
@@ -407,7 +406,8 @@ public class HHTabBar: UIView {
         // 只想要 0～1
         rightScale = rightScale - CGFloat(leftIndex)
         let leftScale: CGFloat = 1 - rightScale
-        //item字体渐变
+        
+        // MARK: item字体渐变
         if itemTitleUnselectedFontScale() != 1.0 {
             // 如果支持title大小跟随content的拖动进行变化，并且未选中字体和已选中字体的大小不一致
             // 计算字体大小的差值
@@ -417,7 +417,7 @@ public class HHTabBar: UIView {
             rightItem.transform = CGAffineTransformMakeScale(leftScale * diff + 1, leftScale * diff + 1)
         }
         
-        // item颜色渐变
+        // MARK: item颜色渐变
         var normalRed: CGFloat = 0, normalGreen: CGFloat = 0, normalBlue: CGFloat = 0, normalAlpha: CGFloat = 0
         var selectedRed: CGFloat = 0, selectedGreen: CGFloat = 0, selectedBlue: CGFloat = 0, selectedAlpha: CGFloat = 0
         itemTitleColor.getRed(&normalRed, green: &normalGreen, blue: &normalBlue, alpha: &normalAlpha)
@@ -433,18 +433,15 @@ public class HHTabBar: UIView {
         leftItem.titleLabel?.textColor = leftColor
         rightItem.titleLabel?.textColor = rightColor
         
-        // 指示器frame
-        if (indicatorScrollFollowContent) {
-            var frame: CGRect = indicatorImageView.frame
-            let xDiff: CGFloat = rightItem.indicatorFrame.origin.x - leftItem.indicatorFrame.origin.x
-            
-            frame.origin.x = rightScale * xDiff + leftItem.indicatorFrame.origin.x
-            
-            let widthDiff: CGFloat = rightItem.indicatorFrame.size.width - leftItem.indicatorFrame.size.width
-            frame.size.width = rightScale * widthDiff + leftItem.indicatorFrame.size.width
-            
-            indicatorImageView.frame = frame
-        }
+        // MARK: 指示器随contentView滑动而移动
+        var frame: CGRect = indicatorImageView.frame
+        let xDiff: CGFloat = rightItem.indicatorFrame.origin.x - leftItem.indicatorFrame.origin.x
+        // 设置指示器x坐标
+        frame.origin.x = rightScale * xDiff + leftItem.indicatorFrame.origin.x
+        let widthDiff: CGFloat = rightItem.indicatorFrame.size.width - leftItem.indicatorFrame.size.width
+        // 设置指示器width
+        frame.size.width = rightScale * widthDiff + leftItem.indicatorFrame.size.width
+        indicatorImageView.frame = frame
     }
     /*
      // Only override draw() if you perform custom drawing.

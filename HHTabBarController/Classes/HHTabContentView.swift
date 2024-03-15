@@ -10,8 +10,10 @@ import UIKit
 @objc public enum HHTabHeaderStyle: Int {
     case Stretch
     case Follow
-    case OnlyUp //header可以跟随滑动向上，不能向下
-    case None   //header固定
+    /// header可以跟随滑动向上，不能向下
+    case OnlyUp
+    /// header固定
+    case None
 }
 
 protocol HHTabContentViewDelegate: NSObjectProtocol {
@@ -38,7 +40,7 @@ public class HHTabContentView: UIView {
     private(set) var headerView: UIView?
     var headerViewDefaultHeight: CGFloat = 0
     var tabBarStopOnTopHeight: CGFloat = 0
-    //带有header和section的整个的tableView滚
+    /// 带有header和section的整个的tableView滚
     var canContentScroll: Bool = true
     var headerStyle: HHTabHeaderStyle = .Follow
     /**
@@ -312,8 +314,7 @@ extension HHTabContentView: UIScrollViewDelegate {
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == contentScrollView {
             containerTableView?.isScrollEnabled = true
-            let page: Int = Int(scrollView.contentOffset.x / scrollView.bounds.width)
-            tabBar.selectedItemIndex = page
+            tabBar.selectedItemIndex = Int(scrollView.contentOffset.x / scrollView.bounds.width)
         }
     }
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -350,10 +351,10 @@ extension HHTabContentView: UIScrollViewDelegate {
             return
         }
         containerTableView?.isScrollEnabled = false
-        //        print("左右滑动")
-        //滑动越界不处理
+        //ContentScrollView左右滑动
         let offsetX: CGFloat = scrollView.contentOffset.x
         let scrollViewWidth: CGFloat = scrollView.frame.width
+        //滑动越界不处理
         if (offsetX < 0) || (offsetX > scrollView.contentSize.width - scrollViewWidth) {
             return
         }
@@ -399,10 +400,8 @@ extension HHTabContentView: UIScrollViewDelegate {
         }
         return true
     }
-    /// 子tableView的滑动
+    // MARK: 子tableView的滑动
     func childScrollViewDidScroll(scrollView: UIScrollView) {
-        print("子tableView的滑动滑动\(scrollView.contentOffset.y)")
-        
         if (headerStyle == .None) {
             containerTableView!.contentOffset = .zero
             return
