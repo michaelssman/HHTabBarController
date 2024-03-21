@@ -309,7 +309,7 @@ public class HHTabBar: UIView {
     /// @param bottom 指示器与tabItem底部的距离
     /// @param additional 指示器与文字宽度匹配后额外增加或减少的长度，0表示相等，正数表示较长，负数表示较短
     /// @param animated 点击item进行背景切换的时候，是否支持动画
-    @objc func setIndicatorWidthFitText(top: CGFloat, bottom: CGFloat, additional: CGFloat, animated: Bool) {
+    @objc public func setIndicatorWidthFitText(top: CGFloat, bottom: CGFloat, additional: CGFloat, animated: Bool) {
         indicatorStyle = .FitTitle
         indicatorSwitchAnimated = animated
         indicatorInsets = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
@@ -322,7 +322,7 @@ public class HHTabBar: UIView {
     /// @param top 指示器与tabItem顶部的距离
     /// @param bottom 指示器与tabItem底部的距离
     /// @param animated 点击item进行背景切换的时候，是否支持动画
-    func setIndicator(width: CGFloat, top: CGFloat, bottom: CGFloat, animated: Bool) {
+    @objc public func setIndicator(width: CGFloat, top: CGFloat, bottom: CGFloat, animated: Bool) {
         indicatorStyle = .FixedWidth
         indicatorSwitchAnimated = animated
         indicatorInsets = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)

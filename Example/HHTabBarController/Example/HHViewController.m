@@ -8,7 +8,6 @@
 
 #import "HHViewController.h"
 #import "HHTabViewsController.h"
-#import "HHTabViewController.h"
 #import "HHTabHeaderViewController.h"
 
 @interface HHViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -29,7 +28,7 @@
 #pragma mark lazy load
 - (NSMutableArray *)objects {
     if (!_objects) {
-        self.objects = [NSMutableArray arrayWithObjects:@"HHTabViewsController",@"HHTabViewController",@"HHTabHeaderViewController", nil];
+        self.objects = [NSMutableArray arrayWithObjects:@"HHTabViewsController", @"HHTabHeaderViewController", nil];
     }
     return _objects;
 }

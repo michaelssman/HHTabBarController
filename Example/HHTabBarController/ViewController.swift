@@ -24,7 +24,8 @@ class ViewController: UIViewController {
     }
     
     @objc func jumpHHViewController() {
-        let vc: HHViewController = HHViewController()
+//        let vc: HHViewController = HHViewController()
+        let vc: HHTabViewController = HHTabViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
